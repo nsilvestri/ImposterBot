@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Reddit April Fools Imposter Bot
+// @name         Reddit April Fools Imposter Bot: Human Detector
 // @namespace    jrwr.io
 // @version      1.1.5
 // @description  A bot that randomly chooses a entry and reports back to a central database at spacescience.tech
-// @author       dimden (https://dimden.dev/), jrwr (http://jrwr.io/), px, qqii
+// @author       dimden (https://dimden.dev/), jrwr (http://jrwr.io/), px, qqii, nsilvestri (https://nsilvestri.me)
 // @match        https://gremlins-api.reddit.com/room?nightmode=1&platform=desktop
 // @match        https://gremlins-api.reddit.com/room?nightmode=1&platform=desktop*
 // @match        https://gremlins-api.reddit.com/results?*
@@ -72,10 +72,10 @@ async function play() {
         // z is string
         let [o, z] = room.options[i];
         if (abra[i] === "known fake" || space[i] === "known fake") {
+            continue;
+        } else if (abra[i] === "known human" || space[i] === "known human") {
             answer = i;
             break;
-        } else if (abra[i] === "known human" || space[i] === "known human") {
-            continue;
         } else if (abra[i] === "unknown" && space[i] === "unknown") {
             answer = i;
             // if (detector[i] > maxDetector) {
