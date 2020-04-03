@@ -172,7 +172,7 @@ setInterval(async () => {
             }
         }
     )
-}, 1200)
+}, 700)
 
 setInterval(() => {
     let curstatus = getStats();
