@@ -3,7 +3,11 @@
 // @namespace    jrwr.io
 // @version      1.1.7
 // @description  A bot that randomly chooses a entry and reports back to a central database at spacescience.tech
+<<<<<<< HEAD
 // @author       dimden (https://dimden.dev/), jrwr (http://jrwr.io/), px, qqii, cg, nsilvestri (https://nsilvestri.me)
+=======
+// @author       dimden (https://dimden.dev/), jrwr (http://jrwr.io/), px, qqii, nsilvestri (https://nsilvestri.me)
+>>>>>>> 6ddb2799418921b5bfd962e50f3175cce85984c5
 // @match        https://gremlins-api.reddit.com/room?nightmode=1&platform=desktop
 // @match        https://gremlins-api.reddit.com/room*
 // @match        https://gremlins-api.reddit.com/results?*
