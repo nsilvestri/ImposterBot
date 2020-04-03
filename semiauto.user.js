@@ -3,7 +3,7 @@
 // @namespace    jrwr.io
 // @version      1.0.1
 // @description  Semiautomatic version from the Imposter Bot for Reddit's April Fools Day 2020.
-// @author       dimden (https://dimden.dev/), jrwr (http://jrwr.io/), px, qqii, NightHawkCanada, cg
+// @author       dimden (https://dimden.dev/), jrwr (http://jrwr.io/), px(u/Hennihenner), qqii, NightHawkCanada, cg
 // @match        https://gremlins-api.reddit.com/room?nightmode=1&platform=desktop
 // @match        https://gremlins-api.reddit.com/room?nightmode=1&platform=desktop*
 // @match        https://gremlins-api.reddit.com/results?*
@@ -63,10 +63,11 @@ async function play() {
 
     let abraP = checkExistingAbra(room.options.flatMap(x => x[0]));
     let spacP = Promise.all(room.options.flatMap(x => checkExistingSpacescience(x[0])));
+    let oceanP = Promise.all(room.options.flatMap(x => checkExistingOcean(x[0])));
     // let deteP = Promise.all(room.options.flatMap(x => checkDetector(x[1])));
     // cost of accuracy
 
-    let [abra, space/*, detector*/] = await Promise.all([abraP, spacP/*, deteP*/]);
+    let [abra, space, ocean] = await Promise.all([abraP, spacP, oceanP]);
 
     // console.table(abra);
     // console.table(space);
@@ -79,14 +80,13 @@ async function play() {
         // o is id
         // z is string
         let [o, z] = room.options[i];
-        if (abra[i] === "known fake" || space[i] === "known fake") {
+        if (abra[i] === "known fake" || space[i] === "known fake" || ocean[i] == "known fake") {
             answer = i;
-
             break;
-        } else if (abra[i] === "known human" || space[i] === "known human") {
+        } else if (abra[i] === "known human" || space[i] === "known human" || ocean[i] == "known human") {
             flag++;
             continue;
-        } else if (abra[i] === "unknown" && space[i] === "unknown") {
+        } else if (abra[i] === "unknown" && space[i] === "unknown" || ocean[i] == "known fake") {
             answer = i;
 
             // if (detector[i] > maxDetector) {
@@ -137,7 +137,7 @@ function getStats() {
 //     console.log(wins);
     return `All: ${wins.length+loses.length} -
 Wins: ${wins.length} (${((wins.length/(wins.length+loses.length))*100).toFixed(1)}%),
-Loses: ${loses.length} (${((loses.length/(wins.length+loses.length))*100).toFixed(1)}%), Time (ms): ${avg}
+Losses: ${loses.length} (${((loses.length/(wins.length+loses.length))*100).toFixed(1)}%), Time (ms): ${avg}
 `;
 }
 
@@ -160,7 +160,7 @@ setInterval(async () => {
                   text: game[1] + ": "+ game[0],
                   duration: 5000,
                   newWindow: true,
-                  close: true,
+                  close: false,
                   gravity: "top", // `top` or `bottom`
                   position: 'left', // `left`, `center` or `right`
                   backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
@@ -173,7 +173,7 @@ setInterval(async () => {
                   text: game[1] + ": "+ game[0],
                   duration: 5000,
                   newWindow: true,
-                  close: true,
+                  close: false,
                   gravity: "top", // `top` or `bottom`
                   position: 'left', // `left`, `center` or `right`
                   backgroundColor: "linear-gradient(to right, #b00023, #c93d54)",
@@ -183,11 +183,11 @@ setInterval(async () => {
             else if (game[1] == "INVALID")
             {
                 Toastify({
-                  text: game[1] + ": "+ game[0],
-                  duration: 5000,
+                  text: "inval",
+                  duration: 1000,
                   newWindow: true,
-                  close: true,
-                  gravity: "top", // `top` or `bottom`
+                  close: false,
+                  gravity: "bottom", // `top` or `bottom`
                   position: 'left', // `left`, `center` or `right`
                   backgroundColor: "linear-gradient(to right, #423e3f, #8f8b8c)",
                   stopOnFocus: false, // Prevents dismissing of toast on hover
@@ -200,7 +200,7 @@ setInterval(() => {
     let curstatus = getStats();
 Toastify({
   text: curstatus,
-  duration: 10000,
+  duration: 10100,
   newWindow: true,
   close: false,
   gravity: "bottom", // `top` or `bottom`

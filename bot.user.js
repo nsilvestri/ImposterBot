@@ -1,13 +1,9 @@
 // ==UserScript==
 // @name         Reddit April Fools Imposter Bot: Human Detector
 // @namespace    jrwr.io
-// @version      1.1.7
-// @description  A bot that randomly chooses a entry and reports back to a central database at spacescience.tech
-<<<<<<< HEAD
-// @author       dimden (https://dimden.dev/), jrwr (http://jrwr.io/), px, qqii, cg, nsilvestri (https://nsilvestri.me)
-=======
-// @author       dimden (https://dimden.dev/), jrwr (http://jrwr.io/), px, qqii, nsilvestri (https://nsilvestri.me)
->>>>>>> 6ddb2799418921b5bfd962e50f3175cce85984c5
+// @version      1.1.9
+// @description  A bot that uses few data sources to find the imposter.
+// @author       dimden (https://dimden.dev/), jrwr (http://jrwr.io/), px(u/Hennihenner), qqii, cg
 // @match        https://gremlins-api.reddit.com/room?nightmode=1&platform=desktop
 // @match        https://gremlins-api.reddit.com/room*
 // @match        https://gremlins-api.reddit.com/results?*
@@ -118,7 +114,7 @@ function getStats() {
 //     console.log(wins);
     return `All: ${wins.length+loses.length} -
 Wins: ${wins.length} (${((wins.length/(wins.length+loses.length))*100).toFixed(1)}%),
-Loses: ${loses.length} (${((loses.length/(wins.length+loses.length))*100).toFixed(1)}%), Time (ms): ${avg}
+Losses: ${loses.length} (${((loses.length/(wins.length+loses.length))*100).toFixed(1)}%), Time (ms): ${Math.floor(avg)}
 `;
 }
 
@@ -141,7 +137,7 @@ setInterval(async () => {
                   text: game[1] + ": "+ game[0],
                   duration: 5000,
                   newWindow: true,
-                  close: true,
+                  close: false,
                   gravity: "top", // `top` or `bottom`
                   position: 'left', // `left`, `center` or `right`
                   backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
@@ -154,7 +150,7 @@ setInterval(async () => {
                   text: game[1] + ": "+ game[0],
                   duration: 5000,
                   newWindow: true,
-                  close: true,
+                  close: false,
                   gravity: "top", // `top` or `bottom`
                   position: 'left', // `left`, `center` or `right`
                   backgroundColor: "linear-gradient(to right, #b00023, #c93d54)",
@@ -164,13 +160,13 @@ setInterval(async () => {
             else if (game[1] == "INVALID")
             {
                 Toastify({
-                  text: game[1] + ": "+ game[0],
-                  duration: 5000,
+                  text: "INVALID",
+                  duration: 1000,
                   newWindow: true,
-                  close: true,
-                  gravity: "top", // `top` or `bottom`
+                  close: false,
+                  gravity: "bottom", // `top` or `bottom`
                   position: 'left', // `left`, `center` or `right`
-                  backgroundColor: "linear-gradient(to right, #423e3f, #8f8b8c)",
+                  backgroundColor: "linear-gradient(to right, #4b6cb7, #182848)",
                   stopOnFocus: false, // Prevents dismissing of toast on hover
                 }).showToast();
             }
@@ -182,7 +178,7 @@ setInterval(() => {
     let curstatus = getStats();
 Toastify({
   text: curstatus,
-  duration: 10000,
+  duration: 10100,
   newWindow: true,
   close: false,
   gravity: "bottom", // `top` or `bottom`
